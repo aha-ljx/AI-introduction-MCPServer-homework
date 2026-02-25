@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bilibili_voideos-MCP-Server"
+version = "0.1.0"
+description = "A simple hello mcp example for MCP Tool."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "art>=6.5",
+    "black>=25.9.0",
+    "colorlog>=6.10.1",
+    "httpx>=0.28.1",           # 异步 HTTP 客户端
+    "mcp[cli]>=1.14.0",
+    "pyyaml>=6.0.2",
+    "ruff>=0.14.4",
+    "jieba>=0.42.1",           # 中文分词与关键词提取
+    "beautifulsoup4>=4.12.0",  # HTML 解析（备用）
+    # ========== 新增：集成学习依赖 ==========
+    "xgboost>=2.0.0",          # 梯度提升树（核心集成组件）
+    "scikit-learn>=1.3.0",     # TF-IDF、RandomForest、LogisticRegression、VotingClassifier
+    "joblib>=1.3.0",           # 模型保存/加载
+    "numpy>=1.24.0",           # XGBoost和sklearn的底层依赖（通常会被自动安装，但显式声明更安全）
+    "requests>=2.31.0",
+    "matplotlib>=3.7.0",       # 图表绘制
+    "plotly>=5.15.0",          # 交互式图表（可选）
+    "jinja2>=3.1.0",           # HTML模板
+    "pandas>=2.0.0",           # 数据处理
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "black",
+    "ruff",
+]
+
+# 关键：显式指定要打包的目录
+[tool.hatch.build.targets.wheel]
+packages = ["core", "modules","prompts","tools","resources"]
